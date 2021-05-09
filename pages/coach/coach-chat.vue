@@ -98,7 +98,7 @@ export default {
         const chatData = doc.data()
         if (
           this.$store.state.targetUserID === chatData.UserID &&
-          this.$store.state.loginUserID === chatData.CoachID
+          this.$store.state.loginUserID === chatData.UserID
         ) {
           chatData.Messages.forEach((value) => {
             this.chatContents.unshift(value)

@@ -426,9 +426,75 @@ export const mutations = {
     state.targetCoachID = coachID
     this.$router.push('/user/user-chat')
   },
+  userChat(state: stateType, chatContents: Array<string>) {
+    db.collection('users')
+      .doc(state.loginUserID)
+      .collection('ContractCoach')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc, index) => {
+          if (
+            querySnapshot.docs[index].data().CoachID === state.targetCoachID
+          ) {
+            state.contractID = querySnapshot.docs[index].id
+          }
+        })
+      })
+      .catch((error) => {
+        alert(error)
+        throw new Error('対象となるコーチが存在しません。')
+      })
+      .then(() => {
+        db.collection('users')
+          .doc(state.loginUserID)
+          .collection('ContractCoach')
+          .doc(state.contractID)
+          .update({
+            Messages: firebase.firestore.FieldValue.arrayUnion(
+              ...[chatContents]
+            ),
+          })
+      })
+      .catch((error) => {
+        alert(error)
+        throw new Error('メッセージ投稿に失敗しました。')
+      })
+  },
   getCoachChat(state: stateType, userID: string) {
     state.targetUserID = userID
     this.$router.push('/coach/coach-chat')
+  },
+  coachChat(state: stateType, chatContents: Array<string>) {
+    db.collection('users')
+      .doc(state.targetUserID)
+      .collection('ContractCoach')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc, index) => {
+          if (querySnapshot.docs[index].data().UserID === state.targetUserID) {
+            state.contractID = querySnapshot.docs[index].id
+          }
+        })
+      })
+      .catch((error) => {
+        alert(error)
+        throw new Error('対象となるユーザーが存在しません。')
+      })
+      .then(() => {
+        db.collection('users')
+          .doc(state.targetUserID)
+          .collection('ContractCoach')
+          .doc(state.contractID)
+          .update({
+            Messages: firebase.firestore.FieldValue.arrayUnion(
+              ...[chatContents]
+            ),
+          })
+      })
+      .catch((error) => {
+        alert(error)
+        throw new Error('メッセージ投稿に失敗しました。')
+      })
   },
   async getAccount(state: stateType, userInformation: variablesType) {
     await firebase
@@ -550,74 +616,6 @@ export const mutations = {
         }
       })
   },
-  async userChat(state: stateType, userChatContents: Array<string>) {
-    await db
-      .collection('users')
-      .doc(state.loginUserID)
-      .collection('ContractCoach')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.docs.forEach((doc, index) => {
-          if (
-            querySnapshot.docs[index].data().CoachID === state.targetCoachID
-          ) {
-            state.contractID = querySnapshot.docs[index].id
-          }
-        })
-      })
-      .catch((error) => {
-        alert(error)
-        throw new Error('対象となるコーチが存在しません。')
-      })
-      .then(() => {
-        db.collection('users')
-          .doc(state.loginUserID)
-          .collection('ContractCoach')
-          .doc(state.contractID)
-          .update({
-            Messages: firebase.firestore.FieldValue.arrayUnion(
-              ...[userChatContents]
-            ),
-          })
-      })
-      .catch((error) => {
-        alert(error)
-        throw new Error('メッセージ投稿に失敗しました。')
-      })
-  },
-  async coachChat(state: stateType, coachChatContents: Array<string>) {
-    await db
-      .collection('users')
-      .doc(state.targetUserID)
-      .collection('ContractCoach')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.docs.forEach((doc, index) => {
-          if (querySnapshot.docs[index].data().UserID === state.targetUserID) {
-            state.contractID = querySnapshot.docs[index].id
-          }
-        })
-      })
-      .catch((error) => {
-        alert(error)
-        throw new Error('対象となるユーザーが存在しません。')
-      })
-      .then(() => {
-        db.collection('users')
-          .doc(state.targetUserID)
-          .collection('ContractCoach')
-          .doc(state.contractID)
-          .update({
-            Messages: firebase.firestore.FieldValue.arrayUnion(
-              ...[coachChatContents]
-            ),
-          })
-      })
-      .catch((error) => {
-        alert(error)
-        throw new Error('メッセージ投稿に失敗しました。')
-      })
-  },
   async deleteAccount(state: stateType, deleteInformation: variablesType) {
     await db
       .collection(deleteInformation.storage)
@@ -684,11 +682,5 @@ export const actions = {
       storage,
     }
     commit('deleteAccount', deleteInformation)
-  },
-  userChat({ commit }, userChatContents: Array<string>) {
-    commit('userChat', userChatContents)
-  },
-  coachChat({ commit }, coachChatContents: Array<string>) {
-    commit('coachChat', coachChatContents)
   },
 }
