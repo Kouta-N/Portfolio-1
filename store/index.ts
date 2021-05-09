@@ -550,7 +550,7 @@ export const mutations = {
         }
       })
   },
-  async userChat(state: stateType, chatContents: Array<string>) {
+  async userChat(state: stateType, userChatContents: Array<string>) {
     await db
       .collection('users')
       .doc(state.loginUserID)
@@ -576,7 +576,7 @@ export const mutations = {
           .doc(state.contractID)
           .update({
             Messages: firebase.firestore.FieldValue.arrayUnion(
-              ...[chatContents]
+              ...[userChatContents]
             ),
           })
       })
@@ -585,7 +585,7 @@ export const mutations = {
         throw new Error('メッセージ投稿に失敗しました。')
       })
   },
-  async coachChat(state: stateType, chatContents: Array<string>) {
+  async coachChat(state: stateType, coachChatContents: Array<string>) {
     await db
       .collection('users')
       .doc(state.targetUserID)
@@ -609,7 +609,7 @@ export const mutations = {
           .doc(state.contractID)
           .update({
             Messages: firebase.firestore.FieldValue.arrayUnion(
-              ...[chatContents]
+              ...[coachChatContents]
             ),
           })
       })
@@ -685,10 +685,10 @@ export const actions = {
     }
     commit('deleteAccount', deleteInformation)
   },
-  userChat({ commit }, chatContents: Array<string>) {
-    commit('userChat', chatContents)
+  userChat({ commit }, userChatContents: Array<string>) {
+    commit('userChat', userChatContents)
   },
-  coachChat({ commit }, chatContents: Array<string>) {
-    commit('coachChat', chatContents)
+  coachChat({ commit }, coachChatContents: Array<string>) {
+    commit('coachChat', coachChatContents)
   },
 }
