@@ -100,6 +100,7 @@ export default {
           this.$store.state.targetUserID === chatData.UserID &&
           this.$store.state.loginUserID === chatData.CoachID
         ) {
+          this.chatContents = []
           chatData.Messages.forEach((value) => {
             this.chatContents.unshift(value)
           })

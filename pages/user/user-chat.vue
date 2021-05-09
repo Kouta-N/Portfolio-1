@@ -105,6 +105,7 @@ export default {
       snapshot.forEach((doc) => {
         const chatData = doc.data()
         if (this.$store.state.targetCoachID === chatData.CoachID) {
+          this.chatContents = []
           chatData.Messages.forEach((value) => {
             this.chatContents.unshift(value)
           })
