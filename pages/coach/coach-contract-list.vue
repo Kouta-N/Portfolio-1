@@ -87,7 +87,7 @@
           <button
             class="btn btn-info mt-3"
             style="margin-left: 3em"
-            @click="doCoachChat(contract.userID)"
+            @click="goCoachChat(contract.userID)"
           >
             チャット画面へ移動する
           </button>
@@ -149,7 +149,7 @@ export default {
     doLogout() {
       this.$store.dispatch('logout')
     },
-    doCoachChat(userID: string) {
+    goCoachChat(userID: string) {
       this.$store.commit('getCoachChat', userID)
     },
   },
