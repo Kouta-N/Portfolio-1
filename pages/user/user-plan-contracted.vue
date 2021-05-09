@@ -52,7 +52,7 @@
       コーチを依頼しました
       <nuxt-link to="/user/user-contract-list"
         ><button class="btn btn-info" style="margin-top: 2em">
-          コーチ一覧とプランへ移動する
+          コーチ依頼履歴へ移動する
         </button></nuxt-link
       >
     </div>

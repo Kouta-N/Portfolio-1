@@ -34,7 +34,8 @@ export interface stateType {
   searchText: string
   userNum: number
   messages: Array<string>
-  contractID: string
+  userContractID: string
+  coachContractID: string
   provider: any
   image: string
   name: string

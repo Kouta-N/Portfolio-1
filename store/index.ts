@@ -19,7 +19,8 @@ export const state = () => ({
   searchText: '' as string,
   userNum: 0 as number,
   messages: [] as Array<string>,
-  contractID: '' as string,
+  userContractID: '' as string,
+  coachContractID: '' as string,
 })
 /// /////////////////getters////////////////////
 export const getters = {
@@ -400,7 +401,7 @@ export const mutations = {
           if (
             querySnapshot.docs[index].data().CoachID === state.targetCoachID
           ) {
-            state.contractID = querySnapshot.docs[index].id
+            state.userContractID = querySnapshot.docs[index].id
           }
         })
       })
@@ -412,7 +413,7 @@ export const mutations = {
         db.collection('coaches')
           .doc(state.targetCoachID)
           .collection('Plans')
-          .doc(state.contractID)
+          .doc(state.userContractID)
           .update({
             PlanReview: state.loginUserName + 'さんのレビュー : ' + review,
           })
@@ -436,7 +437,7 @@ export const mutations = {
           if (
             querySnapshot.docs[index].data().CoachID === state.targetCoachID
           ) {
-            state.contractID = querySnapshot.docs[index].id
+            state.userContractID = querySnapshot.docs[index].id
           }
         })
       })
@@ -448,7 +449,7 @@ export const mutations = {
         db.collection('users')
           .doc(state.loginUserID)
           .collection('ContractCoach')
-          .doc(state.contractID)
+          .doc(state.userContractID)
           .update({
             Messages: firebase.firestore.FieldValue.arrayUnion(
               ...[chatContents]
@@ -471,8 +472,8 @@ export const mutations = {
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((doc, index) => {
-          if (querySnapshot.docs[index].data().UserID === state.targetUserID) {
-            state.contractID = querySnapshot.docs[index].id
+          if (querySnapshot.docs[index].data().CoachID === state.loginUserID) {
+            state.coachContractID = querySnapshot.docs[index].id
           }
         })
       })
@@ -484,7 +485,7 @@ export const mutations = {
         db.collection('users')
           .doc(state.targetUserID)
           .collection('ContractCoach')
-          .doc(state.contractID)
+          .doc(state.coachContractID)
           .update({
             Messages: firebase.firestore.FieldValue.arrayUnion(
               ...[chatContents]
