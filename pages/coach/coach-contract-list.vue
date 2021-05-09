@@ -71,10 +71,6 @@
           <div class="profile-box2">
             {{ contract.userName }}
           </div>
-          ユーザープロフィール <br />
-          <div class="profile-box2">
-            {{ contract.userProfile }}
-          </div>
           プラン名 <br />
           <div class="profile-box2">
             {{ contract.planName }}
@@ -113,8 +109,7 @@ export default {
         if (
           value.contents.includes(this.contractKeyword) ||
           value.planName.includes(this.contractKeyword) ||
-          value.userName.includes(this.contractKeyword) ||
-          value.userProfile.includes(this.contractKeyword)
+          value.userName.includes(this.contractKeyword)
         ) {
           cutoutContracts.push(value)
         }
