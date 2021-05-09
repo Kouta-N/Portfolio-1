@@ -101,8 +101,8 @@ export default {
       .collection('users')
       .doc(this.$store.state.loginUserID)
       .collection('ContractCoach')
-    dbChat.get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
+    dbChat.onSnapshot((snapshot) => {
+      snapshot.forEach((doc) => {
         const chatData = doc.data()
         if (this.$store.state.targetCoachID === chatData.CoachID) {
           chatData.Messages.forEach((value) => {
