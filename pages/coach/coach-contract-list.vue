@@ -133,7 +133,6 @@ export default {
         const contractData = doc.data()
         const pushContract: coachContractType = {
           userName: contractData.UserName,
-          userProfile: contractData.UserProfile,
           planName: contractData.PlanName,
           contents: contractData.PlanContents,
           userID: contractData.UserID,
