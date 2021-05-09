@@ -117,9 +117,6 @@ export default {
       if (this.message === '') {
         this.resultMessage = '何も入力されていません。'
       } else {
-        this.chatContents.unshift(
-          this.$store.state.loginUserName + ': ' + this.message
-        )
         this.$store.commit(
           'userChat',
           this.$store.state.loginUserName + ': ' + this.message
