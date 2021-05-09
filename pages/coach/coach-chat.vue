@@ -96,10 +96,7 @@ export default {
     dbChat.onSnapshot((snapshot) => {
       snapshot.forEach((doc) => {
         const chatData = doc.data()
-        if (
-          this.$store.state.targetUserID === chatData.UserID &&
-          this.$store.state.loginUserID === chatData.CoachID
-        ) {
+        if (this.$store.state.loginUserID === chatData.CoachID) {
           this.chatContents = []
           chatData.Messages.forEach((value) => {
             this.chatContents.unshift(value)
