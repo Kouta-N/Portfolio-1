@@ -29,7 +29,6 @@ export interface stateType {
   loginUserID: string
   loginCoachID: string
   profile: string
-  requestPlan: string
   targetUserID: string
   targetCoachID: string
   searchText: string
@@ -74,6 +73,7 @@ export interface contractType {
 }
 export interface coachContractType {
   userName: string
+  userProfile: string
   planName: string
   contents: string
   userID: string
