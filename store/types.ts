@@ -6,7 +6,7 @@ export interface variablesType {
   specialty: string
   address: string
   newPass: string
-  age: number
+  age: number | string
   plan: string
   contents: string
   email: string
@@ -19,7 +19,7 @@ export interface variablesType {
   userID: string
 }
 export interface stateType {
-  age: number
+  age: number | string
   address: string
   coachSpecialty: string
   coachImage: string
