@@ -5,22 +5,22 @@ const db = firebase.firestore()
 /// /////////////////state////////////////////
 export const state = () => ({
   age: null,
-  address: '',
-  coachSpecialty: '',
-  coachImage: '',
-  loginUserName: '',
-  loginUserMail: '',
-  loginUserPass: '',
-  loginUserID: '',
-  loginCoachID: '',
-  profile: '',
-  targetCoachID: '',
-  targetUserID: '',
-  searchText: '',
-  userNum: 0,
-  messages: [],
-  userContractID: '',
-  coachContractID: '',
+  address: '' as string,
+  coachSpecialty: '' as string,
+  coachImage: '' as string,
+  loginUserName: '' as string,
+  loginUserMail: '' as string,
+  loginUserPass: '' as string,
+  loginUserID: '' as string,
+  loginCoachID: '' as string,
+  profile: '' as string,
+  targetCoachID: '' as string,
+  targetUserID: '' as string,
+  searchText: '' as string,
+  userNum: 0 as number,
+  messages: [] as Array<string>,
+  userContractID: '' as string,
+  coachContractID: '' as string,
 })
 /// /////////////////getters////////////////////
 export const getters = {
@@ -316,7 +316,7 @@ export const mutations = {
             CoachName: name,
             PlanName: plan,
             PlanContents: contents,
-            PlanReview: 'レビューはまだありません。',
+            PlanReview: 'レビューはまだありません。' as string,
             CoachID: state.loginCoachID,
           })
       })
@@ -345,7 +345,7 @@ export const mutations = {
         CoachName: coachName,
         PlanName: planName,
         PlanContents: contents,
-        Messages: [],
+        Messages: [] as Array<string>,
       })
       .catch((error) => {
         alert(error)
@@ -514,26 +514,25 @@ export const mutations = {
             Name: userInformation.name,
             Email: userInformation.email,
             Password: userInformation.pass,
-            Profile: '未登録',
-            Age: null,
-            Address: '未登録',
+            Profile: '未登録' as string,
+            Age: 0 as number,
+            Address: '未登録' as string,
           })
         } else {
           db.collection('coaches').add({
             Name: userInformation.name,
             Email: userInformation.email,
             Password: userInformation.pass,
-            Profile: '未登録',
-            Age: null,
-            Address: '未登録',
-            CoachImage:
-              'https://firebasestorage.googleapis.com/v0/b/yourcoach-21414.appspot.com/o/no_image.png?alt=media&token=ed66a82f-7412-44aa-9466-900e741da90e',
-            CoachSpecialty: '未登録',
-            GetUserNum: 0,
+            Profile: '未登録' as string,
+            Age: 0 as number,
+            Address: '未登録' as string,
+            CoachImage: 'https://firebasestorage.googleapis.com/v0/b/yourcoach-21414.appspot.com/o/no_image.png?alt=media&token=ed66a82f-7412-44aa-9466-900e741da90e' as string,
+            CoachSpecialty: '未登録' as string,
+            GetUserNum: 0 as number,
           })
           state.coachImage =
             'https://firebasestorage.googleapis.com/v0/b/yourcoach-21414.appspot.com/o/no_image.png?alt=media&token=ed66a82f-7412-44aa-9466-900e741da90e'
-          state.coachSpecialty = '未登録'
+          state.coachSpecialty = '未登録' as string
         }
         db.collection(userInformation.storage)
           .get()
