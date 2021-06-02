@@ -4,7 +4,7 @@ import { variablesType, stateType, userContractType } from '@/store/types'
 const db = firebase.firestore()
 /// /////////////////state////////////////////
 export const state = () => ({
-  age: null,
+  age: '' as string,
   address: '' as string,
   coachSpecialty: '' as string,
   coachImage: '' as string,
@@ -514,9 +514,9 @@ export const mutations = {
             Name: userInformation.name,
             Email: userInformation.email,
             Password: userInformation.pass,
-            Profile: '未登録' as string,
-            Age: 0 as number,
-            Address: '未登録' as string,
+            Profile: '未登録',
+            Age: '未登録',
+            Address: '未登録',
           })
         } else {
           db.collection('coaches').add({
@@ -524,7 +524,7 @@ export const mutations = {
             Email: userInformation.email,
             Password: userInformation.pass,
             Profile: '未登録' as string,
-            Age: 0 as number,
+            Age: '未登録' as string,
             Address: '未登録' as string,
             CoachImage: 'https://firebasestorage.googleapis.com/v0/b/yourcoach-21414.appspot.com/o/no_image.png?alt=media&token=ed66a82f-7412-44aa-9466-900e741da90e' as string,
             CoachSpecialty: '未登録' as string,
@@ -548,7 +548,7 @@ export const mutations = {
                 state.loginUserName = userInformation.name
                 state.loginUserMail = userInformation.email
                 state.loginUserPass = userInformation.pass
-                state.age = null
+                state.age = '未登録'
                 state.address = '未登録'
                 state.profile = '未登録'
               }
